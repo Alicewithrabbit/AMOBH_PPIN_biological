@@ -34,11 +34,11 @@ KT = 2*(nobjs+1);
 
 %**** Perform biclustering on the whole network and picking up 50 (Pop_Size) number of bicluster based on density***********************
 % 
-chrom = biclustering(adj,Pop_Size/2,Pop_Size);
+% chrom = biclustering(adj,Pop_Size/2,Pop_Size);
 
 %**************************************************************************
 %****************** Making Initial Population *****************************
-% load chrom.mat
+load chrom.mat
 Initial_Pop = chrom;
 [initial_archive, Entropy, delta_Entropy, gbest_all,L] = Initial_Archive(Pop_Size,Initial_Pop,adj,shortest_path_matrix,similarity_matrix, bh_option);
 gArchive = initial_archive;
@@ -303,7 +303,7 @@ for t=1:No_Of_Generation
             scc = sort(sc,'descend');
             for k = 1:KT/2+1
                 I = find(sc == scc(k),1);
-                gbest_all{k} =  gArchive{I};
+                gbest_all{k+KT/2-1} =  gArchive{I};
             end
             
         end
@@ -335,7 +335,7 @@ for t=1:No_Of_Generation
             scc = sort(sc,'descend');
             for k = 1:KT/2-1
                 I = find(sc == scc(k),1);
-                gbest_all{k} =  gArchive{I};
+                gbest_all{k+KT/2+1} =  gArchive{I};
             end
             
         end
@@ -368,7 +368,7 @@ for t=1:No_Of_Generation
             scc = sort(sc,'descend');
             for k = 1:KT/2
                 I = find(sc == scc(k),1);
-                gbest_all{k} =  gArchive{I};
+                gbest_all{k+KT/2} =  gArchive{I};
             end
             
         end
